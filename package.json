@@ -1,0 +1,20 @@
+{
+    "name": "authenticator",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Yurii Tsiurpita",
+    "license": "ISC",
+    "dependencies": {
+        "apollo-server": "^3.10.0",
+        "graphql": "^16.5.0",
+        "pg": "^8.7.3"
+    },
+    "devDependencies": {
+        "typescript": "^4.7.4"
+    }
+}
