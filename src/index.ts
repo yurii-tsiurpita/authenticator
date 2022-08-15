@@ -1,21 +1,17 @@
 import { ApolloServer } from "apollo-server";
+import { Logger } from "./classes/logger.js";
+import { Server } from "./classes/server.js";
+import { Query } from "./resolvers/query.js";
 import { typeDefs } from "./schema.js";
-import { Query } from "./resolvers/index.js";
 
-const server = new ApolloServer({
-    typeDefs,
-    resolvers: {
-        Query
-    }
-});
+const server = new Server(
+    new Logger(),
+    new ApolloServer({
+        typeDefs,
+        resolvers: {
+            Query
+        }
+    })
+)
 
-server
-    .listen({
-        port: 2022
-    })
-    .then(serverInfo => {
-        console.log(`Server is listening at ${serverInfo.url}`);
-    })
-    .catch(error => {
-        console.log('ERROR')
-    })
+server.run();

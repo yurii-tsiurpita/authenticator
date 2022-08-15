@@ -5,7 +5,7 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "dev": "nodemon --exec npx ts-node --esm ./src/index.ts",
+        "dev": "nodemon",
         "build": "tsc"
     },
     "author": "Yurii Tsiurpita",
