@@ -12,6 +12,6 @@ const server = new Server(
             Query
         }
     })
-)
+);
 
 server.run();
