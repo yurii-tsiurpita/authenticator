@@ -1,22 +1,26 @@
-import apolloServer from "./apollo-server.js";
+import { ApolloServer } from "apollo-server-express";
+
 import Logger from "./classes/logger.js";
 import { Server } from "./classes/server.js";
-import postgre, { PostgresqlPool } from "./database/postgresql.js";
-import { AuthRepository } from "./repositories/auth-repo.js";
-import { AuthService } from "./services/auth-service.js";
+import postgresql from "./database/postgresql.js";
+import { Mutation } from "./schema/resolvers/mutation.js";
+import { typeDefs } from "./schema/type-defs.js";
+import { Query } from "./schema/resolvers/query.js";
 
-const server = new Server(
-    new Logger(),
-    apolloServer,
-    postgre
-);
-
-server.run();
-
-const userRepo = new AuthRepository(
-    new PostgresqlPool(
-        new Logger()
-    )
-);
-
-userRepo.insert({email: 'email', password: 'pass'});
+(async () => {
+    const apolloServer = new ApolloServer({
+        typeDefs,
+        resolvers: {
+            Query: Query,
+            Mutation: Mutation
+        }
+    });
+    
+    const server = new Server(
+        new Logger(),
+        apolloServer,
+        postgresql
+    );
+    
+    await server.run();
+})();

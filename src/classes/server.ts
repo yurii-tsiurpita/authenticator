@@ -1,14 +1,17 @@
-import { ApolloServer } from "apollo-server";
-import { PostgresqlPool } from "../database/postgresql.js";
+import express, { Express } from "express";
+import { ApolloServer } from "apollo-server-express";
+
+import { Postgresql } from "../database/postgresql.js";
 import { ILogger } from "../types/logger-types.js";
 
 export class Server {
     private port: number = 3033;
+    private server: Express = express();
 
     constructor (
         private logger: ILogger,
         private apolloServer: ApolloServer,
-        private postgresql: PostgresqlPool
+        private postgresql: Postgresql
     ) {}
 
     async run(): Promise<void> {
@@ -21,11 +24,15 @@ export class Server {
                 password: 'postgresql'
             });
 
-            const { url } = await this.apolloServer.listen({ port: this.port });
-            this.logger.log(`[Server] Server runs at ${ url }`);
-            console.log(this.postgresql.smth)
+            await this.apolloServer.start();
+            this.apolloServer.applyMiddleware({ app: this.server });
+
+            this.server.listen(this.port, () => {
+                this.logger.log(`[Server] Server runs at http://localhost:${this.port}`);
+            });
         } catch (error) {
             if (error instanceof Error) this.logger.error(`[Server] Server startup error: ${ error.message }`);
+            process.exit(1);
         }
     }
 };
