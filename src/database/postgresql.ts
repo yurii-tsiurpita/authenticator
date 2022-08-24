@@ -1,5 +1,4 @@
-import pg, { Pool, PoolConfig } from "pg";
-
+import pg, { Pool, PoolConfig, QueryResult } from "pg";
 import Logger from "../classes/logger.js";
 import { ILogger } from "../types/logger-types.js";
 
@@ -19,12 +18,8 @@ export class Postgresql {
         }
     }
 
-    async query(sql: string, values: any[]): Promise<void> {
-        try {
-            await this.pool.query(sql, values);
-        } catch (error) {
-            throw error;
-        }
+    async query(sql: string, values: any[]): Promise<QueryResult> {
+        return await this.pool.query(sql, values);
     }
 };
 

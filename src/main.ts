@@ -11,8 +11,8 @@ import { Query } from "./schema/resolvers/query.js";
     const apolloServer = new ApolloServer({
         typeDefs,
         resolvers: {
-            Query: Query,
-            Mutation: Mutation
+            Query,
+            Mutation
         }
     });
     

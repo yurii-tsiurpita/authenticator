@@ -1,14 +1,12 @@
-import { PostgresqlPool } from "../database/postgresql.js";
+import { AuthRepository } from "../repositories/auth-repository.js";
 import { SignupData } from "../types/auth-types.js";
 
 export class AuthService {
-    constructor(private postgresqlPool: PostgresqlPool) {}
+    private authRepository: AuthRepository = new AuthRepository();
 
-    validateUser() {
-        console.log(this.postgresqlPool.smth)
-    }
-    
-    createUser(newUserData: SignupData) {
-
+    async signup(newUserData: SignupData) {
+        const result = await this.authRepository.insert(newUserData);
+        console.log(result.rows);
+        return result.rows;
     }
 };
