@@ -1,4 +1,5 @@
 const signupForm = document.querySelector('.signup-form');
+const getUsersButton = document.querySelector('.get-users-button');
 
 const query = async (data) => {
     const response = await fetch('http://localhost:3033/graphql', {
@@ -15,6 +16,7 @@ const query = async (data) => {
 
 signupForm.addEventListener('submit', async e => {
     e.preventDefault();
+
     const email = document.querySelector('.email-input').value;
     const password = document.querySelector('.password-input').value;
 
@@ -23,14 +25,29 @@ signupForm.addEventListener('submit', async e => {
             mutation ($email: String!, $password: String!) {
                 signup(email: $email, password: $password) {
                     email
-                    id
                 }
-        }
+            }
         `,
         variables: {
             email,
             password
         }
+    });
+
+    await query(data);
+});
+
+getUsersButton.addEventListener('click', async event => {
+    event.preventDefault();
+
+    const data = JSON.stringify({
+        query: `
+            query {
+                users {
+                    email
+                }
+            }
+        `,
     });
 
     await query(data);

@@ -1,12 +1,9 @@
-import { AuthRepository } from "../repositories/auth-repository.js";
-import { SignupData } from "../types/auth-types.js";
+import { IPostgresqlUser, ISignupData, IUsersRepository } from "../types/user-types.js";
 
 export class AuthService {
-    private authRepository: AuthRepository = new AuthRepository();
+    constructor(private usersRepository: IUsersRepository) {}
 
-    async signup(newUserData: SignupData) {
-        const result = await this.authRepository.insert(newUserData);
-        console.log(result.rows);
-        return result.rows;
+    async signup(signupData: ISignupData): Promise<IPostgresqlUser> {
+        return await this.usersRepository.createUser(signupData) as Promise<IPostgresqlUser>;
     }
 };

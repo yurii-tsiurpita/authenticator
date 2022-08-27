@@ -9,10 +9,6 @@ html {
 
 body {
     height: 100vh;
-}
-
-.signup-form {
-    height: 100%;
     display: grid;
     justify-content: center;
     align-content: center;
