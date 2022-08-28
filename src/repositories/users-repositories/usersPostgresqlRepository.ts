@@ -1,22 +1,20 @@
-import { IPostgresql } from "../../types/database-types.js";
-import { IPostgresqlUser, ISignupData, IUsersPostgresqlRepository } from "../../types/user-types.js";
-import postgresql from "../../database/postgresql.js";
+import { ISignupData, IUser } from "../../entities/users/users-interfaces.js";
+import postgresql, { Postgresql } from "../../database/postgresql.js";
+import { IUsersRepository } from "./users-repositories-interfaces.js";
 
-export class UsersPostgresqlRepository implements IUsersPostgresqlRepository {
-    private postgresql: IPostgresql = postgresql;
+export class UsersPostgresqlRepository implements IUsersRepository {
+    private postgresql: Postgresql = postgresql;
 
-    async createUser(signupData: ISignupData): Promise<IPostgresqlUser> {
-        const result = await this.postgresql.createOne(
+    async createUser(signupData: ISignupData): Promise<IUser> {
+        return (await this.postgresql.pool.query(
             'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *;',
-            signupData
-        );
-
-        return result[0];
+            [signupData.email, signupData.password]
+        )).rows[0];
     }
 
-    async findUsers(): Promise<IPostgresqlUser[]> {
-        return await this.postgresql.findMany(
+    async findUsers(): Promise<IUser[]> {
+        return (await this.postgresql.pool.query(
             'SELECT * FROM users'
-        );
+        )).rows;
     }
 }

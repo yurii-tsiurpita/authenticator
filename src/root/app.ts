@@ -2,7 +2,7 @@ import express, { Express } from "express";
 import { ApolloServer } from "apollo-server-express";
 import { PoolConfig } from "pg";
 import postgresql, { Postgresql } from "../database/postgresql.js";
-import { ILogger } from "../types/logger-types.js";
+import { ILogger } from "../services/services-interfaces/logger-interface.js";
 import mongodb, { Mongodb } from "../database/mongodb.js";
 
 export class App {

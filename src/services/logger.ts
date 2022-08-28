@@ -1,4 +1,4 @@
-import { ILogger } from "../types/logger-types.js";
+import { ILogger } from "./services-interfaces/logger-interface.js";
 
 class Logger implements ILogger {
     log(message: string): void {

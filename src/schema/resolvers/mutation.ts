@@ -1,6 +1,6 @@
 import { UsersPostgresqlRepository } from "../../repositories/users-repositories/usersPostgresqlRepository.js";
 import { AuthService } from "../../services/auth-service.js";
-import { ISignupData, IUser } from "../../types/user-types.js";
+import { ISignupData, IUser } from "../../entities/users/users-interfaces.js";
 
 const authService: AuthService = new AuthService(
     new UsersPostgresqlRepository()

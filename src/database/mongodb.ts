@@ -1,11 +1,10 @@
 import { Db, MongoClient } from "mongodb";
 import Logger from "../services/logger.js";
-import { IMongodb } from "../types/database-types.js";
-import { ILogger } from "../types/logger-types.js";
+import { ILogger } from "../services/services-interfaces/logger-interface.js";
 
-export class Mongodb implements IMongodb {
+export class Mongodb {
     private client: MongoClient = new MongoClient(process.env.MONGODB_CONNECTION_STRING!);
-    private db: Db = this.client.db();
+    db: Db = this.client.db();
 
     constructor(private logger: ILogger) {}
 
@@ -21,10 +20,6 @@ export class Mongodb implements IMongodb {
             
             process.exit(1);
         }
-    }
-
-    async findMany(collectionName: string): Promise<any> {
-        return await this.db.collection(collectionName).find({}).toArray();
     }
 };
 
