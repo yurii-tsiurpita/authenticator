@@ -1,5 +1,5 @@
-import { IUser } from "../../entities/users/users-interfaces";
+import { IUserData } from "../../data-structures/user-data-interface.js";
 
 export interface IUsersService {
-    getUsers(): Promise<IUser[]>;
+    getUsers(): Promise<IUserData[]>;
 }

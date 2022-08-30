@@ -24,7 +24,9 @@ signupForm.addEventListener('submit', async e => {
         query: `
             mutation ($email: String!, $password: String!) {
                 signup(email: $email, password: $password) {
+                    id
                     email
+                    password
                 }
             }
         `,
@@ -44,7 +46,9 @@ getUsersButton.addEventListener('click', async event => {
         query: `
             query {
                 users {
+                    id
                     email
+                    password
                 }
             }
         `,

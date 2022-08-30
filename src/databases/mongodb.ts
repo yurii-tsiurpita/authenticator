@@ -4,7 +4,7 @@ import { ILogger } from "../services/services-interfaces/logger-interface.js";
 
 export class Mongodb {
     private client: MongoClient = new MongoClient(process.env.MONGODB_CONNECTION_STRING!);
-    db: Db = this.client.db();
+    db: Db = this.client.db(process.env.DB_NAME);
 
     constructor(private logger: ILogger) {}
 

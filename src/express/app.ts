@@ -1,19 +1,22 @@
 import express, { Express } from "express";
-import { ApolloServer } from "apollo-server-express";
-import { PoolConfig } from "pg";
-import postgresql, { Postgresql } from "../database/postgresql.js";
+import postgresql, { Postgresql } from "../databases/postgresql.js";
 import { ILogger } from "../services/services-interfaces/logger-interface.js";
-import mongodb, { Mongodb } from "../database/mongodb.js";
+import mongodb, { Mongodb } from "../databases/mongodb.js";
+import graphqlServer from "../graphql/graphql-server.js";
+import { ApolloServer } from "apollo-server-express";
 
 export class App {
     private port: number = 3033;
+
     private app: Express = express();
+    private graphqlServer: ApolloServer = graphqlServer;
+
     private postgresql: Postgresql = postgresql;
     private mongodb: Mongodb = mongodb;
 
     constructor (
         private logger: ILogger,
-        private apolloServer: ApolloServer
+        
     ) {}
 
     private setViews(): void {
@@ -36,8 +39,8 @@ export class App {
             await this.postgresql.connect();
             await this.mongodb.connect();
 
-            await this.apolloServer.start();
-            this.apolloServer.applyMiddleware({ app: this.app });
+            await this.graphqlServer.start();
+            this.graphqlServer.applyMiddleware({ app: this.app });
 
             this.setViews();
             this.useMiddlewares();
