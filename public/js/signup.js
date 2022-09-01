@@ -26,7 +26,6 @@ signupForm.addEventListener('submit', async e => {
                 signup(email: $email, password: $password) {
                     id
                     email
-                    password
                 }
             }
         `,
@@ -48,7 +47,6 @@ getUsersButton.addEventListener('click', async event => {
                 users {
                     id
                     email
-                    password
                 }
             }
         `,

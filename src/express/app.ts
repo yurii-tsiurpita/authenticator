@@ -1,9 +1,9 @@
 import express, { Express } from "express";
 import postgresql, { Postgresql } from "../databases/postgresql.js";
-import { ILogger } from "../services/services-interfaces/logger-interface.js";
 import mongodb, { Mongodb } from "../databases/mongodb.js";
 import graphqlServer from "../graphql/graphql-server.js";
 import { ApolloServer } from "apollo-server-express";
+import { IDatabase } from "../databases/databases-interfaces/database-interface.js";
 
 export class App {
     private port: number = 3033;
@@ -11,13 +11,8 @@ export class App {
     private app: Express = express();
     private graphqlServer: ApolloServer = graphqlServer;
 
-    private postgresql: Postgresql = postgresql;
-    private mongodb: Mongodb = mongodb;
-
-    constructor (
-        private logger: ILogger,
-        
-    ) {}
+    private postgresql: IDatabase = postgresql;
+    private mongodb: IDatabase = mongodb;
 
     private setViews(): void {
         this.app.set('views', './views');
@@ -47,10 +42,10 @@ export class App {
             this.useRoutes();
             this.app.listen(this.port);
             
-            this.logger.log(`[Server] Server runs at http://localhost:${this.port}`);
+            console.log(`[Server] Server runs at http://localhost:${this.port}`);
         } catch (error) {
             if (error instanceof Error) {
-                this.logger.error(`[Server] Server startup error: ${ error.message }`);
+                console.log(`[Server] Server startup error: ${ error.message }`);
             }
 
             process.exit(1);

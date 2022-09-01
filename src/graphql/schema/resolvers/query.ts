@@ -1,4 +1,4 @@
-import { ISignupData } from "../../../data-structures/signup-data-interface.js";
+import { ISignupData } from "../../../data-structures/user-data-interfaces.js";
 import { IContext } from "../../graphql-server-types.js";
 
 export const Query = {
