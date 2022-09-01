@@ -1,5 +1,6 @@
-import { IUserData } from "../../data-structures/user-data-interface.js";
+import { ISignupData, IUserOutputData } from "../../data-structures/user-data-interfaces.js";
 
 export interface IUsersService {
-    getUsers(): Promise<IUserData[]>;
+    signup(signupData: ISignupData): Promise<IUserOutputData>;
+    getUsers(): Promise<IUserOutputData[]>;
 }

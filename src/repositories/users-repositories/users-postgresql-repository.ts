@@ -5,10 +5,10 @@ import { IUsersRepository } from "../repositories-interfaces/users-repository-in
 export class UsersPostgresqlRepository implements IUsersRepository {
     private postgresql: Postgresql = postgresql;
 
-    async createUser(signupData: ISignupData): Promise<IUserOutputData> {
+    async createUser({ email, password }: ISignupData): Promise<IUserOutputData> {
         return (await this.postgresql.pool.query(
             'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *;',
-            [signupData.email, signupData.password]
+            [email, password]
         )).rows[0];
     }
 

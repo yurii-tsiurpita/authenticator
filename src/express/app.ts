@@ -3,16 +3,15 @@ import postgresql, { Postgresql } from "../databases/postgresql.js";
 import mongodb, { Mongodb } from "../databases/mongodb.js";
 import graphqlServer from "../graphql/graphql-server.js";
 import { ApolloServer } from "apollo-server-express";
-import { IDatabase } from "../databases/databases-interfaces/database-interface.js";
+import usersRouter, { UsersRouter } from "./routes/users-router.js";
 
 export class App {
     private port: number = 3033;
-
     private app: Express = express();
     private graphqlServer: ApolloServer = graphqlServer;
-
-    private postgresql: IDatabase = postgresql;
-    private mongodb: IDatabase = mongodb;
+    private postgresql: Postgresql = postgresql;
+    private mongodb: Mongodb = mongodb;
+    private usersRouter: UsersRouter = usersRouter;
 
     private setViews(): void {
         this.app.set('views', './views');
@@ -21,12 +20,12 @@ export class App {
 
     private useMiddlewares(): void {
         this.app.use(express.static('public'));
+        this.app.use(express.json());
     }
 
     private useRoutes(): void {
-        this.app.use('/', (req, res) => {
-            res.render('main');
-        });
+        this.app.get('/', (req, res) => { res.render('main') });
+        this.app.use('/api/users', this.usersRouter.router);
     }
 
     async run(): Promise<void> {

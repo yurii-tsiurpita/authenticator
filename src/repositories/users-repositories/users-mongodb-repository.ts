@@ -6,8 +6,8 @@ export class UsersMongodbRepository implements IUsersRepository {
     private mongodb: Mongodb = mongodb;
     private usersCollection = this.mongodb.db.collection<IMongodbUserData>(process.env.MONGODB_USERS_COLLECTION_NAME!);
 
-    async createUser(signupData: ISignupData): Promise<IUserOutputData> {
-        const result = await this.usersCollection.insertOne(signupData);
+    async createUser({ email, password }: ISignupData): Promise<IUserOutputData> {
+        const result = await this.usersCollection.insertOne({ email, password });
         const newUser = await this.usersCollection.aggregate<IUserOutputData>([{
             $match: { _id: result.insertedId }
         }, {
