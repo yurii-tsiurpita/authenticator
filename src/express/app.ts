@@ -3,7 +3,7 @@ import postgresql, { Postgresql } from "../databases/postgresql.js";
 import mongodb, { Mongodb } from "../databases/mongodb.js";
 import graphqlServer from "../graphql/graphql-server.js";
 import { ApolloServer } from "apollo-server-express";
-import usersRouter, { UsersRouter } from "./routes/users-router.js";
+import { UsersRouter } from "./routes/users-router.js";
 
 export class App {
     private port: number = 3033;
@@ -11,7 +11,7 @@ export class App {
     private graphqlServer: ApolloServer = graphqlServer;
     private postgresql: Postgresql = postgresql;
     private mongodb: Mongodb = mongodb;
-    private usersRouter: UsersRouter = usersRouter;
+    private usersRouter: UsersRouter = new UsersRouter();
 
     private setViews(): void {
         this.app.set('views', './views');

@@ -1,9 +1,9 @@
 import express, { Router } from "express";
-import usersController, { UsersController } from "../controllers/users-controller.js";
+import { UsersController } from "../controllers/users-controller.js";
 
 export class UsersRouter {
     router: Router = express.Router();
-    private controller: UsersController = usersController;
+    private controller: UsersController = new UsersController();
 
     constructor() {
         this.router
@@ -12,5 +12,3 @@ export class UsersRouter {
             .post(this.controller.signup.bind(this.controller));
     }
 }
-
-export default new UsersRouter();

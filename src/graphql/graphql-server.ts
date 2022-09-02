@@ -2,7 +2,8 @@ import { ApolloServer } from "apollo-server-express";
 import { Mutation } from "./schema/resolvers/mutation.js";
 import { typeDefs } from "./schema/type-defs.js";
 import { Query } from "./schema/resolvers/query.js";
-import usersService from "../services/users-service.js";
+import { UsersService } from "../services/users-service.js";
+import { UsersPostgresqlRepository } from "../repositories/users-repositories/users-postgresql-repository.js";
 
 export default new ApolloServer({
     typeDefs,
@@ -11,6 +12,8 @@ export default new ApolloServer({
         Mutation
     },
     context: {
-        usersService
+        usersService: new UsersService(
+            new UsersPostgresqlRepository()
+        )
     }
 });
