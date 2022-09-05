@@ -8,25 +8,36 @@
     <title>Authenticator</title>
 </head>
 <body>
-    <form class="signup-form" action="" method="post">
+    <form class="form signup-form">
 
-        <div class="">
-            <label class="email-label">Email</label>
-            <div class="">
-                <span class=""><i class=""></i></span>
-                <input class="email-input" type="email" placeholder="user@example.com">
+        <div>
+            <label class="signup-form__email-label">Email</label>
+            <div>
+                <input class="signup-form__email-input" type="email" placeholder="user@example.com">
             </div>
         </div>
 
-        <div class="">
-            <label class="">Password</label>
-            <div class="">
-                <span class=""><i class=""></i></span>
-                <input class="password-input" type="password" placeholder="some complex string">
+        <div>
+            <label>Password</label>
+            <div>
+                <input class="signup-form__password-input" type="password" placeholder="some complex string">
             </div>
         </div>
 
-        <button class="" type="submit">Submit</button>
+        <button class="signup-form__button">Signup</button>
+
+    </form>
+
+    <form class="form get-user-form">
+
+        <div>
+            <label class="get-user-form__email-label">Email</label>
+            <div>
+                <input class="get-user-form__email-input" type="email" placeholder="user@example.com">
+            </div>
+        </div>
+
+        <button class="get-user-form__button">Get user</button>
 
     </form>
 

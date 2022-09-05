@@ -3,6 +3,10 @@ export interface ISignupData {
     password: string;
 }
 
+export interface IUserFindingData {
+    email: string;
+}
+
 export interface IUserOutputData {
     id: string;
     email: string;

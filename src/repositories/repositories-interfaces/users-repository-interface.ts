@@ -2,5 +2,6 @@ import { ISignupData, IUserOutputData } from "../../data-structures/user-data-in
 
 export interface IUsersRepository {
     createUser(signupData: ISignupData): Promise<IUserOutputData>;
+    findUser(email: string): Promise<IUserOutputData>;
     findUsers(): Promise<IUserOutputData[]>;
 }

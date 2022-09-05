@@ -7,14 +7,21 @@ export class UsersPostgresqlRepository implements IUsersRepository {
 
     async createUser({ email, password }: ISignupData): Promise<IUserOutputData> {
         return (await this.postgresql.pool.query(
-            'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *;',
+            'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email;',
             [email, password]
+        )).rows[0];
+    }
+
+    async findUser(email: string): Promise<IUserOutputData> {
+        return (await this.postgresql.pool.query(
+            'SELECT id, email FROM users WHERE email = $1;',
+            [email]
         )).rows[0];
     }
 
     async findUsers(): Promise<IUserOutputData[]> {
         return (await this.postgresql.pool.query(
-            'SELECT * FROM users;'
+            'SELECT id, email FROM users;'
         )).rows;
     }
 }

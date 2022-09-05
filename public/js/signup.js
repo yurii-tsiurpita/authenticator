@@ -1,4 +1,7 @@
 const signupForm = document.querySelector('.signup-form');
+const getUserForm = document.querySelector('.get-user-form');
+const signupButton = document.querySelector('.signup-form__button');
+const getUserButton = document.querySelector('.get-user-form__button');
 const getUsersButton = document.querySelector('.get-users-button');
 
 const query = async (data) => {
@@ -14,11 +17,11 @@ const query = async (data) => {
     console.log(responseData);
 };
 
-signupForm.addEventListener('submit', async e => {
+signupButton.addEventListener('click', async e => {
     e.preventDefault();
 
-    const email = document.querySelector('.email-input').value;
-    const password = document.querySelector('.password-input').value;
+    const email = document.querySelector('.signup-form__email-input').value;
+    const password = document.querySelector('.signup-form__password-input').value;
 
     const data = JSON.stringify({
         query: `
@@ -32,6 +35,28 @@ signupForm.addEventListener('submit', async e => {
         variables: {
             email,
             password
+        }
+    });
+
+    await query(data);
+});
+
+getUserButton.addEventListener('click', async event => {
+    event.preventDefault();
+
+    const email = document.querySelector('.get-user-form__email-input').value;
+
+    const data = JSON.stringify({
+        query: `
+            query ($email: String!) {
+                user(email: $email) {
+                    id
+                    email
+                }
+            }
+        `,
+        variables: {
+            email,
         }
     });
 

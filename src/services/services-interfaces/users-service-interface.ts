@@ -2,5 +2,6 @@ import { ISignupData, IUserOutputData } from "../../data-structures/user-data-in
 
 export interface IUsersService {
     signup(signupData: ISignupData): Promise<IUserOutputData>;
+    getUser(email: string): Promise<IUserOutputData>;
     getUsers(): Promise<IUserOutputData[]>;
 }
