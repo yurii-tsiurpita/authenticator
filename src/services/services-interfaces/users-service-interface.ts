@@ -4,4 +4,5 @@ export interface IUsersService {
     signup(signupData: ISignupData): Promise<IUserOutputData>;
     getUser(email: string): Promise<IUserOutputData>;
     getUsers(): Promise<IUserOutputData[]>;
+    deleteUsers(): Promise<IUserOutputData[]>;
 }

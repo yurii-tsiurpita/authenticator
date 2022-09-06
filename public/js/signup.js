@@ -3,6 +3,7 @@ const getUserForm = document.querySelector('.get-user-form');
 const signupButton = document.querySelector('.signup-form__button');
 const getUserButton = document.querySelector('.get-user-form__button');
 const getUsersButton = document.querySelector('.get-users-button');
+const deleteUsersButton = document.querySelector('.delete-users-button');
 
 const query = async (data) => {
     const response = await fetch('http://localhost:3033/graphql', {
@@ -49,7 +50,7 @@ getUserButton.addEventListener('click', async event => {
     const data = JSON.stringify({
         query: `
             query ($email: String!) {
-                user(email: $email) {
+                getUser(email: $email) {
                     id
                     email
                 }
@@ -69,7 +70,24 @@ getUsersButton.addEventListener('click', async event => {
     const data = JSON.stringify({
         query: `
             query {
-                users {
+                getUsers {
+                    id
+                    email
+                }
+            }
+        `,
+    });
+
+    await query(data);
+});
+
+deleteUsersButton.addEventListener('click', async event => {
+    event.preventDefault();
+
+    const data = JSON.stringify({
+        query: `
+            mutation {
+                deleteUsers {
                     id
                     email
                 }

@@ -2,11 +2,11 @@ import { ISignupData, IUserFindingData, IUserOutputData } from "../../../data-st
 import { IContext } from "../../graphql-server-types.js";
 
 export const Query = {
-    async user(obj: any, args: IUserFindingData, context: IContext, info: any): Promise<IUserOutputData> {
+    async getUser(obj: any, args: IUserFindingData, context: IContext, info: any): Promise<IUserOutputData> {
         return await context.usersService.getUser(args.email);
     },
 
-    async users(obj: any, args: any, context: IContext, info: any): Promise<IUserOutputData[]> {
+    async getUsers(obj: any, args: any, context: IContext, info: any): Promise<IUserOutputData[]> {
         return await context.usersService.getUsers();
     }
 };

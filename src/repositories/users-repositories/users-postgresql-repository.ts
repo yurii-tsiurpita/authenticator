@@ -24,4 +24,10 @@ export class UsersPostgresqlRepository implements IUsersRepository {
             'SELECT id, email FROM users;'
         )).rows;
     }
+
+    async deleteUsers(): Promise<IUserOutputData[]> {
+        return (await this.postgresql.pool.query(
+            'DELETE FROM users RETURNING id, email;'
+        )).rows;
+    }
 }

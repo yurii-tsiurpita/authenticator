@@ -36,4 +36,14 @@ export class UsersService implements IUsersService {
 
         return users;
     }
+
+    async deleteUsers(): Promise<IUserOutputData[]> {
+        const deletedUsers = await this.usersRepository.deleteUsers();
+
+        if (!deletedUsers.length) {
+            throw new Error('There are no users to delete.');
+        }
+
+        return deletedUsers;
+    }
 }
