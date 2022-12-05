@@ -5,5 +5,3 @@ import { App } from "./express/app.js";
     const server = new App();
     await server.run();
 })();
-
-// test
